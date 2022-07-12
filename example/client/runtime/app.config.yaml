@@ -1,0 +1,29 @@
+application:
+  actions: actions
+  web: web-src
+  runtimeManifest:
+    packages:
+      mtls-example:
+        license: Apache-2.0
+        actions:
+          generic:
+            function: actions/generic/index.js
+            web: 'yes'
+            runtime: 'nodejs:14'
+            inputs:
+              LOG_LEVEL: debug
+              __AIO_MTLS_CERT: $__AIO_MTLS_CERT
+              __AIO_MTLS_KEY: $__AIO_MTLS_KEY
+            annotations:
+              require-adobe-auth: false
+              final: true
+          publish-events:
+            function: actions/publish-events/index.js
+            web: 'yes'
+            runtime: 'nodejs:14'
+            inputs:
+              LOG_LEVEL: debug
+              apiKey: $SERVICE_API_KEY
+            annotations:
+              require-adobe-auth: true
+              final: true
