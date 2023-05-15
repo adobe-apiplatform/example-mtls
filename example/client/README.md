@@ -36,13 +36,13 @@ export __AIO_MTLS_ENDPOINT="https://my.endpoint/"
 ### Create a new Application
 ```
 > cd /path/to/example-mtls/example/client
-> aio app:init ./my-mtls-example
+> aio app:init ./my-mtls-example --standalone-app --no-login -y
 ```
 
-### Move these two example files in place
+### Move these two example files into place (overwrite existing)
 ```
-> cp runtime/index.js ./my-mtls-example/actions/generic/index.js
-> cp runtime/app.config.yaml ./my-mtls-example/
+> cp -f runtime/index.js ./my-mtls-example/actions/generic/
+> cp -f runtime/app.config.yaml ./my-mtls-example/
 ```
 
 ### Run your AppBuilder project locally
