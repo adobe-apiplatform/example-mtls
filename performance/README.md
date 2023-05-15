@@ -38,5 +38,5 @@ You can override the number of VUs and test duration variables for any of the [a
 
 You can also override the endpoint that `k6` will use during the tests, such as the one used by the `aio` cli when running locally
 ```
-export __AIO_MTLS_APP_ENDPOINT="http://localhost:3233/api/v1/web/guest/mtls-example/generic
+export __AIO_MTLS_APP_ENDPOINT="http://localhost:3233/api/v1/web/guest/my-mtls-example/generic
 ```

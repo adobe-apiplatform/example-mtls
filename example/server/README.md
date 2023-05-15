@@ -10,4 +10,7 @@ This contains the items necessary to create the nginx docker image which support
 
 ## Usage
 
-The docker image can be built using the root level `make server-build` target.
+The docker image can be built and run using the root level `server-run` make target.
+```
+make server-run
+```
