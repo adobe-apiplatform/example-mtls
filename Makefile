@@ -6,22 +6,20 @@ CERT_OUTPUT_DIR=$(PWD)/example/certs
 CERT_SUBJECT="/C=US/ST=California/L=San Jose"
 CERT_PASSWORD=password123
 
-certs: certs-create certs-test
-
-certs-create:
-	echo "Generate server-side certificate..."
-	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $(CERT_OUTPUT_DIR)/mtls_server.key -out $(CERT_OUTPUT_DIR)/mtls_server.crt -subj $(CERT_SUBJECT) &> /dev/null
-	echo "Generate client-side certificate..."
-	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $(CERT_OUTPUT_DIR)/mtls_client.key -out $(CERT_OUTPUT_DIR)/mtls_client.crt -subj $(CERT_SUBJECT) &> /dev/null
-	echo "Combine client-side cert+key..."
-	openssl pkcs12 -export -out $(CERT_OUTPUT_DIR)/mtls_client.pfx -inkey $(CERT_OUTPUT_DIR)/mtls_client.key -in $(CERT_OUTPUT_DIR)/mtls_client.crt -passout pass:$(CERT_PASSWORD) &> /dev/null
+certs:
+	@echo "Generate server-side certificate..."
+	openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $(CERT_OUTPUT_DIR)/mtls_server.key -out $(CERT_OUTPUT_DIR)/mtls_server.crt -subj $(CERT_SUBJECT)
+	@echo "Generate client-side certificate..."
+	openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $(CERT_OUTPUT_DIR)/mtls_client.key -out $(CERT_OUTPUT_DIR)/mtls_client.crt -subj $(CERT_SUBJECT)
+	@echo "Combine client-side cert+key..."
+	openssl pkcs12 -export -out $(CERT_OUTPUT_DIR)/mtls_client.pfx -inkey $(CERT_OUTPUT_DIR)/mtls_client.key -in $(CERT_OUTPUT_DIR)/mtls_client.crt -passout pass:$(CERT_PASSWORD)
 
 certs-test:
-	echo "Validate RSA server key..."
+	@echo "Validate RSA server key..."
 	openssl rsa -in $(CERT_OUTPUT_DIR)/mtls_server.key -check &> /dev/null
-	echo "Validate x509 server certificate..."
+	@echo "Validate x509 server certificate..."
 	openssl x509 -in $(CERT_OUTPUT_DIR)/mtls_server.crt -text -noout &> /dev/null
-	echo "Validate PKCS12 client key/cert pack..."
+	@echo "Validate PKCS12 client key/cert pack..."
 	openssl pkcs12 -info -in $(CERT_OUTPUT_DIR)/mtls_client.pfx -passin pass:$(CERT_PASSWORD) -passout pass:$(CERT_PASSWORD) &> /dev/null
 
 build: server-build
