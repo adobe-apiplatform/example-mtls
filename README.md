@@ -2,7 +2,7 @@
 
 ## Overview 
 
-This repository contains working examples (out of the box) using Mutual TLS (mTLS) between I/O Runtime actions and an external service
+This repository contains working examples (out of the box) using Mutual TLS (mTLS) between I/O Runtime actions and an external service using PKCS #12 (.p12/.pfx) certificates.
 
 ## Sections
 
